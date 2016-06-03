@@ -27,40 +27,42 @@ def httpHandler():
 @asyncio.coroutine
 def receive_send(websocket, path):
   # Please write your code here
+  print("Rahoooooooooooooooooooeceiving ...")
   try:
     print("Receiving ...")
-    rcv = yield from websocket.recv()
-    print(rcv)
-    data = json.loads(str(rcv))
+    data = yield from websocket.recv()
     print(data)
-    print(data["data"])
+    print(path)
+#    data = json.loads(str(rcv))
+#     print(data)
+#     print(data["data"])
 
-    print("< {}".format(rcv))
+#     print("< {}".format(rcv))
 
-    command = {
-      "command": "",
-      "data": ""
-    }
-    #    command[command] = rcv
+#     command = {
+#       "command": "",
+#       "data": ""
+#     }
+#     #    command[command] = rcv
 
-    ##
-    data = ""
-    if data[0:2] == "bot":
-      print("aho")
+#     ##
+#     data = ""
+#     if data[0:2] == "bot":
+#       print("aho")
 
-    # bot = Bot(str(rcv))
-    # bot.generate_hash()
-    # print(bot.hash)
-    dict = {
-      "name": "aaa",
-      "age": 30
-    }
-    jsonstring = json.dumps(dict)
-    print(jsonstring)
+#     # bot = Bot(str(rcv))
+#     # bot.generate_hash()
+#     # print(bot.hash)
+#     dict = {
+#       "name": "aaa",
+#       "age": 30
+#     }
+#     jsonstring = json.dumps(dict)
+#     print(jsonstring)
 
-    greeting = "{}".format(rcv)
-#    yield from websocket.send(greeting)
-    print("> {}".format(greeting))
+#     greeting = "{}".format(rcv)
+# #    yield from websocket.send(greeting)
+#     print("> {}".format(greeting))
 
   except KeyboardInterrupt:
     print('\nCtrl-C (SIGINT) caught. Exiting...')
