@@ -30,7 +30,7 @@ def receive_send(websocket, path):
     rcv = await websocket.recv()
     print(rcv)
     print("< {}".format(rcv))
-
+##
     bot = Bot(rcv)
     bot.generate_hash()
     print(bot.hash)
