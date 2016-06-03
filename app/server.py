@@ -31,7 +31,10 @@ def receive_send(websocket, path):
     print("Receiving ...")
     rcv = yield from websocket.recv()
     print(rcv)
-    list(rcv.json()[0].keys());
+    data = json.loads(str(rcv))
+    print(data)
+    print(data["data"])
+
     print("< {}".format(rcv))
 
     command = {
@@ -41,11 +44,22 @@ def receive_send(websocket, path):
     #    command[command] = rcv
 
     ##
+    data = ""
+    if data[0:2] == "bot":
+      print("aho")
+
     # bot = Bot(str(rcv))
     # bot.generate_hash()
     # print(bot.hash)
+    dict = {
+      "name": "aaa",
+      "age": 30
+    }
+    jsonstring = json.dumps(dict)
+    print(jsonstring)
+
     greeting = "{}".format(rcv)
-    yield from websocket.send(greeting)
+#    yield from websocket.send(greeting)
     print("> {}".format(greeting))
 
   except KeyboardInterrupt:
