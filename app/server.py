@@ -17,7 +17,7 @@ def httpHandler():
 
     @route('/<filename>')
     def server_static(filename):
-      return static_file(filename, root='./app')    
+      return static_file(filename, root='./app')
 
     run(host='localhost', port=9000)
 
@@ -27,8 +27,19 @@ def receive_send(websocket, path):
   # Please write your code here
   try:
     print("Receiving ...")
+    rcv = await websocket.recv()
+    print(rcv)
+    print("< {}".format(rcv))
+
+    bot = Bot(rcv)
+    bot.generate_hash()
+    print(bot.hash)
+    greeting = "{}".format(rcv)
+    await websocket.send(greeting)
+    print("> {}".format(greeting))
+
   except KeyboardInterrupt:
-    print('\nCtrl-C (SIGINT) caught. Exiting...')  
+    print('\nCtrl-C (SIGINT) caught. Exiting...')
 
 if __name__ == '__main__':
   loop = asyncio.get_event_loop()
