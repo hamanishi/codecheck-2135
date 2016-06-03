@@ -2,9 +2,11 @@
 
 from bottle import static_file, route, run
 from threading import Thread
+from bot import Bot
 
 import asyncio
 import websockets
+import json
 
 #serving index.html file on "http://localhost:9000"
 def httpHandler():
@@ -27,15 +29,23 @@ def receive_send(websocket, path):
   # Please write your code here
   try:
     print("Receiving ...")
-    rcv = await websocket.recv()
+    rcv = yield from websocket.recv()
     print(rcv)
+    list(rcv.json()[0].keys());
     print("< {}".format(rcv))
-##
-    bot = Bot(rcv)
-    bot.generate_hash()
-    print(bot.hash)
+
+    command = {
+      "command": "",
+      "data": ""
+    }
+    #    command[command] = rcv
+
+    ##
+    # bot = Bot(str(rcv))
+    # bot.generate_hash()
+    # print(bot.hash)
     greeting = "{}".format(rcv)
-    await websocket.send(greeting)
+    yield from websocket.send(greeting)
     print("> {}".format(greeting))
 
   except KeyboardInterrupt:
